@@ -19,6 +19,30 @@ variable "kubernetes_version" {
   default     = "v1.31.4"
 }
 
+variable "cluster1_pod_subnet" {
+  description = "Pod CIDR for Cluster 1"
+  type        = string
+  default     = "10.10.0.0/16"
+}
+
+variable "cluster1_service_subnet" {
+  description = "Service CIDR for Cluster 1"
+  type        = string
+  default     = "10.11.0.0/16"
+}
+
+variable "cluster2_pod_subnet" {
+  description = "Pod CIDR for Cluster 2"
+  type        = string
+  default     = "10.20.0.0/16"
+}
+
+variable "cluster2_service_subnet" {
+  description = "Service CIDR for Cluster 2"
+  type        = string
+  default     = "10.21.0.0/16"
+}
+
 # -----------------------------------------------------------------------------
 # Docker Network
 # -----------------------------------------------------------------------------
@@ -59,4 +83,37 @@ variable "cluster2_metallb_ip_range" {
   description = "MetalLB IP address pool range for Cluster 2 (within shared network subnet)"
   type        = string
   default     = "172.20.81.1-172.20.81.254"
+}
+
+# -----------------------------------------------------------------------------
+# Istio
+# -----------------------------------------------------------------------------
+variable "istio_version" {
+  description = "Istio Helm chart version"
+  type        = string
+  default     = "1.29.0"
+}
+
+variable "mesh_id" {
+  description = "Istio mesh ID shared across clusters"
+  type        = string
+  default     = "mesh1"
+}
+
+variable "cluster1_network" {
+  description = "Network name for Cluster 1 (Istio topology)"
+  type        = string
+  default     = "network1"
+}
+
+variable "cluster2_network" {
+  description = "Network name for Cluster 2 (Istio topology)"
+  type        = string
+  default     = "network2"
+}
+
+variable "certs_dir" {
+  description = "Path to directory containing generated CA certificates"
+  type        = string
+  default     = "../certs"
 }

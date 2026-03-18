@@ -34,3 +34,18 @@ output "cluster2_metallb_ip_range" {
   description = "MetalLB IP range assigned to Cluster 2"
   value       = var.cluster2_metallb_ip_range
 }
+
+output "istio_mesh_id" {
+  description = "Istio mesh ID"
+  value       = var.mesh_id
+}
+
+output "cluster1_network" {
+  description = "Istio network name for Cluster 1"
+  value       = var.cluster1_network
+}
+
+output "cluster2_network" {
+  description = "Istio network name for Cluster 2"
+  value       = var.cluster2_network
+}

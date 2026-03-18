@@ -11,6 +11,11 @@ resource "kind_cluster" "cluster2" {
     kind        = "Cluster"
     api_version = "kind.x-k8s.io/v1alpha4"
 
+    networking {
+      pod_subnet     = var.cluster2_pod_subnet
+      service_subnet = var.cluster2_service_subnet
+    }
+
     node {
       role = "control-plane"
     }

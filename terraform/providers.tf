@@ -14,6 +14,10 @@ terraform {
       source  = "hashicorp/helm"
       version = "~> 2.17"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.36"
+    }
     null = {
       source  = "hashicorp/null"
       version = "~> 3.2"
@@ -53,4 +57,24 @@ provider "helm" {
     client_key             = kind_cluster.cluster2.client_key
     cluster_ca_certificate = kind_cluster.cluster2.cluster_ca_certificate
   }
+}
+
+# -----------------------------------------------------------------------------
+# Provider: Kubernetes — aliased per cluster
+# Used for namespaces, secrets (cacerts), and labels
+# -----------------------------------------------------------------------------
+provider "kubernetes" {
+  alias                  = "cluster1"
+  host                   = kind_cluster.cluster1.endpoint
+  client_certificate     = kind_cluster.cluster1.client_certificate
+  client_key             = kind_cluster.cluster1.client_key
+  cluster_ca_certificate = kind_cluster.cluster1.cluster_ca_certificate
+}
+
+provider "kubernetes" {
+  alias                  = "cluster2"
+  host                   = kind_cluster.cluster2.endpoint
+  client_certificate     = kind_cluster.cluster2.client_certificate
+  client_key             = kind_cluster.cluster2.client_key
+  cluster_ca_certificate = kind_cluster.cluster2.cluster_ca_certificate
 }
