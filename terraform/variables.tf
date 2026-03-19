@@ -19,30 +19,6 @@ variable "kubernetes_version" {
   default     = "v1.31.4"
 }
 
-variable "cluster1_pod_subnet" {
-  description = "Pod CIDR for Cluster 1"
-  type        = string
-  default     = "10.10.0.0/16"
-}
-
-variable "cluster1_service_subnet" {
-  description = "Service CIDR for Cluster 1"
-  type        = string
-  default     = "10.11.0.0/16"
-}
-
-variable "cluster2_pod_subnet" {
-  description = "Pod CIDR for Cluster 2"
-  type        = string
-  default     = "10.20.0.0/16"
-}
-
-variable "cluster2_service_subnet" {
-  description = "Service CIDR for Cluster 2"
-  type        = string
-  default     = "10.21.0.0/16"
-}
-
 # -----------------------------------------------------------------------------
 # Docker Network
 # -----------------------------------------------------------------------------

@@ -5,11 +5,6 @@ cluster2_name = "cluster2"
 
 kubernetes_version = "v1.31.4"
 
-cluster1_pod_subnet     = "10.10.0.0/16"
-cluster1_service_subnet = "10.11.0.0/16"
-cluster2_pod_subnet     = "10.20.0.0/16"
-cluster2_service_subnet = "10.21.0.0/16"
-
 shared_network_name    = "kind-shared"
 shared_network_subnet  = "172.20.0.0/16"
 shared_network_gateway = "172.20.0.1"
