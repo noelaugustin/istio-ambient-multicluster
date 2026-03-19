@@ -22,8 +22,17 @@ terraform {
       source  = "hashicorp/null"
       version = "~> 3.2"
     }
+    vault = {
+      source  = "hashicorp/vault"
+      version = "~> 3.25"
+    }
   }
 }
+
+# -----------------------------------------------------------------------------
+# Provider: Vault (uses VAULT_ADDR and VAULT_TOKEN env vars)
+# -----------------------------------------------------------------------------
+# provider "vault" {}
 
 # -----------------------------------------------------------------------------
 # Provider: Docker (for shared network management)
