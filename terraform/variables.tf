@@ -31,13 +31,13 @@ variable "shared_network_name" {
 variable "shared_network_subnet" {
   description = "CIDR for the shared Docker network"
   type        = string
-  default     = "172.20.0.0/16"
+  default     = "10.0.0.0/9"
 }
 
 variable "shared_network_gateway" {
   description = "Gateway IP for the shared Docker network"
   type        = string
-  default     = "172.20.0.1"
+  default     = "10.0.0.1"
 }
 
 # -----------------------------------------------------------------------------
@@ -52,13 +52,13 @@ variable "metallb_chart_version" {
 variable "cluster1_metallb_ip_range" {
   description = "MetalLB IP address pool range for Cluster 1 (within shared network subnet)"
   type        = string
-  default     = "172.20.10.1-172.20.10.254"
+  default     = "10.10.0.1-10.10.0.254"
 }
 
 variable "cluster2_metallb_ip_range" {
   description = "MetalLB IP address pool range for Cluster 2 (within shared network subnet)"
   type        = string
-  default     = "172.20.81.1-172.20.81.254"
+  default     = "10.81.0.1-10.81.0.254"
 }
 
 # -----------------------------------------------------------------------------

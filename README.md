@@ -6,7 +6,7 @@ The architecture demonstrates a high-availability mesh using Istio's sidecar-les
 
 ## Architecture Highlights
 - **2 K8s Clusters (`cluster1` & `cluster2`)** running in Docker containers via Kind, sharing the `kind-shared` Docker bridge network.
-- **MetalLB Load Balancing:** Each cluster has a dedicated IP address pool assigned to its load balancers natively within the bridge network to avoid overlapping (`172.20.10.x` and `172.20.81.x`).
+- **MetalLB Load Balancing:** Each cluster has a dedicated IP address pool assigned to its load balancers natively within the bridge network to avoid overlapping (`10.10.0.x` and `10.81.0.x`).
 - **Istio 1.29 (Ambient Mode):** `istio-base`, `istiod`, `istio-cni`, and `ztunnel` installed entirely declaratively via Terraform Helm releases (zero `istioctl` command-line dependencies).
 - **Multi-Network East-West Gateways:** Deployed natively using Kubernetes Gateway API to facilitate cross-cluster communication.
 - **Sample Application:** Automatically deploys `sleep` and `helloworld` clients/services. `helloworld` is explicitly labeled as a global mesh service (`istio.io/global="true"`) routing through L7 Waypoint Proxies, demonstrating seamless active-active failover across the clusters.

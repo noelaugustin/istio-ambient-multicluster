@@ -6,12 +6,12 @@ cluster2_name = "cluster2"
 kubernetes_version = "v1.31.4"
 
 shared_network_name    = "kind-shared"
-shared_network_subnet  = "172.20.0.0/16"
-shared_network_gateway = "172.20.0.1"
+shared_network_subnet  = "10.0.0.0/9"
+shared_network_gateway = "10.0.0.1"
 
 metallb_chart_version     = "0.14.9"
-cluster1_metallb_ip_range = "172.20.10.1-172.20.10.254"
-cluster2_metallb_ip_range = "172.20.81.1-172.20.81.254"
+cluster1_metallb_ip_range = "10.10.0.1-10.10.0.254"
+cluster2_metallb_ip_range = "10.81.0.1-10.81.0.254"
 
 # Istio
 istio_version    = "1.29.0"
