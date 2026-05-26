@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xds-gateway
+  namespace: discovery
+  labels:
+    app: xds-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xds-gateway
+  template:
+    metadata:
+      labels:
+        app: xds-gateway
+    spec:
+      containers:
+        - name: xds-gateway
+          image: xds-gateway:latest
+          imagePullPolicy: Never   # loaded via `kind load docker-image`
+          ports:
+            - name: grpc-xds
+              containerPort: 15012
+              protocol: TCP
+          env:
+            - name: REDIS_ADDR
+              value: "valkey-primary.discovery.svc.cluster.local:6379"
+            - name: TLS_CERT_FILE
+              value: "/etc/xds-tls/tls.crt"
+            - name: TLS_KEY_FILE
+              value: "/etc/xds-tls/tls.key"
+          volumeMounts:
+            - name: xds-tls
+              mountPath: /etc/xds-tls
+              readOnly: true
+          readinessProbe:
+            tcpSocket:
+              port: 15012
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 15012
+            initialDelaySeconds: 15
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+      volumes:
+        - name: xds-tls
+          secret:
+            secretName: xds-gateway-tls

@@ -1,0 +1,62 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: endpoint-controller
+  namespace: discovery
+  labels:
+    app: endpoint-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: endpoint-controller
+  template:
+    metadata:
+      labels:
+        app: endpoint-controller
+    spec:
+      serviceAccountName: endpoint-controller
+      containers:
+        - name: endpoint-controller
+          image: endpoint-controller:latest
+          imagePullPolicy: Never   # loaded via `kind load docker-image`
+          env:
+            - name: REDIS_ADDR
+              value: "valkey-primary.discovery.svc.cluster.local:6379"
+            - name: CLUSTER1_NAME
+              value: "cluster1"
+            - name: CLUSTER1_NETWORK
+              value: "network1"
+            - name: CLUSTER1_REGION
+              value: "local"
+            - name: CLUSTER1_AZ
+              value: "zone-a"
+            - name: CLUSTER2_NAME
+              value: "cluster2"
+            - name: CLUSTER2_NETWORK
+              value: "network2"
+            - name: CLUSTER2_REGION
+              value: "local"
+            - name: CLUSTER2_AZ
+              value: "zone-b"
+          volumeMounts:
+            - name: kubeconfigs
+              mountPath: /etc/kubeconfigs
+              readOnly: true
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+      volumes:
+        - name: kubeconfigs
+          secret:
+            secretName: remote-kubeconfigs
+            items:
+              - key: cluster1
+                path: cluster1
+              - key: cluster2
+                path: cluster2

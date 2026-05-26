@@ -1,0 +1,47 @@
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Terraform
+**/.terraform/
+**/.terraform.lock.hcl
+**/*.tfstate
+**/*.tfstate.backup
+**/*.tfvars
+**/*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+crash.log
+crash.*.log
+
+# Certificates and Keys
+**/certs/**/*.pem
+**/certs/**/*.crt
+**/certs/**/*.key
+**/certs/**/*.csr
+**/certs/**/*.srl
+**/certs/**/*.conf
+!**/certs/**/gen-certs.sh
+
+# Terraform state and back-up state
+**/*.tfstate
+**/*.tfstate*
+
+# Kind Provider Kubeconfigs
+**/terraform/*-config
+**/*-config
+
+# Downloaded Binaries and Archives
+istio-*/
+**/*.tar.gz
+**/*.zip
+

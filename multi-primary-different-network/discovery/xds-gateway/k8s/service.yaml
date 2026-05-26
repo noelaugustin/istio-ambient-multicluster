@@ -1,0 +1,19 @@
+---
+# Fixed MetalLB IP so ztunnel Helm values can be hardcoded in Terraform.
+# MetalLB will assign 10.90.0.2 to this service via the loadBalancerIP field.
+apiVersion: v1
+kind: Service
+metadata:
+  name: xds-gateway
+  namespace: discovery
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: "10.90.0.2"
+spec:
+  type: LoadBalancer
+  selector:
+    app: xds-gateway
+  ports:
+    - name: grpc-xds
+      port: 15012
+      targetPort: 15012
+      protocol: TCP

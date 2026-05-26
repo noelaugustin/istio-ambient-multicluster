@@ -1,0 +1,37 @@
+---
+# ─── Namespace ────────────────────────────────────────────────────────────────
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: discovery
+---
+# ─── ServiceAccount ───────────────────────────────────────────────────────────
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: endpoint-controller
+  namespace: discovery
+---
+# ─── ClusterRole: read pods + services on cluster3 itself ─────────────────────
+# (cluster1/cluster2 access is via out-of-cluster kubeconfigs in a Secret)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: endpoint-controller
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "endpoints"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: endpoint-controller
+subjects:
+  - kind: ServiceAccount
+    name: endpoint-controller
+    namespace: discovery
+roleRef:
+  kind: ClusterRole
+  name: endpoint-controller
+  apiGroup: rbac.authorization.k8s.io
